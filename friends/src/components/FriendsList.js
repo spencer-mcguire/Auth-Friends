@@ -24,7 +24,7 @@ const FriendsList = () => {
       .then(err => console.log(err));
   };
 
-  const addFriend = a => {
+  const modifyFriend = a => {
     setFriends(a);
   };
 
@@ -34,9 +34,9 @@ const FriendsList = () => {
         <Loader type="Grid" color="white" height={80} width={80} />
       )}
       {friends.map(i => (
-        <FriendsCard key={i.id} data={i} />
+        <FriendsCard key={i.id} data={i} modifyFriend={modifyFriend} />
       ))}
-      <AddFriendForm addFriend={addFriend} />
+      <AddFriendForm addFriend={modifyFriend} />
     </div>
   );
 };
