@@ -10,6 +10,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 const FriendsList = () => {
   const [friends, setFriends] = useState([]);
   console.log(friends);
+
   useEffect(() => {
     getData();
   }, []);
@@ -17,8 +18,14 @@ const FriendsList = () => {
   const getData = () => {
     axiosWithAuth()
       .get("/friends")
-      .then(res => setFriends(res.data))
+      .then(res => {
+        setFriends(res.data);
+      })
       .then(err => console.log(err));
+  };
+
+  const addFriend = a => {
+    setFriends(a);
   };
 
   return (
@@ -29,7 +36,7 @@ const FriendsList = () => {
       {friends.map(i => (
         <FriendsCard key={i.id} data={i} />
       ))}
-      <AddFriendForm />
+      <AddFriendForm addFriend={addFriend} />
     </div>
   );
 };

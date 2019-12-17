@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-export const AddFriendForm = () => {
+export const AddFriendForm = ({ addFriend }) => {
   const [newFriend, setNewFriend] = useState({
     name: "",
     age: "",
@@ -18,10 +19,17 @@ export const AddFriendForm = () => {
   // Submit
   const handleSubmit = e => {
     e.preventDefault();
+    axiosWithAuth()
+      .post("/friends", newFriend)
+      .then(res => {
+        console.log(res);
+        addFriend(res.data);
+      })
+      .catch(err => console.log(err));
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         name="name"
